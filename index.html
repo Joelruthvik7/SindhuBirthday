@@ -31,194 +31,104 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            perspective: 1000px; /* Essential for 3D */
+            perspective: 1200px;
         }
 
         /* --- Aurora Background --- */
         .aurora-wrapper {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: #0c0a09;
-            overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2; background: #0c0a09; overflow: hidden;
         }
-
         .aurora {
-            position: absolute;
-            width: 150%; height: 150%;
-            top: -25%; left: -25%;
+            position: absolute; width: 150%; height: 150%; top: -25%; left: -25%;
             background: 
                 radial-gradient(circle at 20% 30%, hsla(333,70%,55%,0.3) 0%, transparent 50%),
                 radial-gradient(circle at 80% 70%, hsla(282,82%,54%,0.2) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, hsla(210,89%,60%,0.2) 0%, transparent 50%),
-                radial-gradient(circle at 10% 80%, hsla(35,90%,60%,0.2) 0%, transparent 50%);
+                radial-gradient(circle at 50% 50%, hsla(210,89%,60%,0.2) 0%, transparent 50%);
             filter: blur(80px);
             animation: aurora-rotate 30s infinite alternate ease-in-out;
         }
+        @keyframes aurora-rotate { 0% { transform: rotate(0deg) scale(1); } 100% { transform: rotate(10deg) scale(1.1); } }
 
-        @keyframes aurora-rotate {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(10deg) scale(1.1); }
-        }
-
-        #three-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            z-index: -1;
-            pointer-events: none;
-        }
+        #three-canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
 
         /* --- UI Elements --- */
         .progress-container {
-            position: fixed;
-            top: 30px;
-            width: 200px;
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            z-index: 100;
+            position: fixed; top: 30px; width: 200px; height: 4px;
+            background: rgba(255,255,255,0.1); border-radius: 10px; z-index: 100;
         }
         #progress-bar {
-            width: 20%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 16.6%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary));
             transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* --- Card System --- */
-        .card-container {
-            width: 90%;
-            max-width: 550px;
-            z-index: 10;
-            transition: transform 0.1s ease-out; /* Smooth tilt */
-            will-change: transform;
-        }
+        .card-container { width: 90%; max-width: 600px; z-index: 10; position: relative; }
 
         .glass-card {
-            background: rgba(20, 18, 18, 0.7);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            display: none;
-            opacity: 0;
-            transform-style: preserve-3d;
+            background: rgba(20, 18, 18, 0.75); backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px); border: 1px solid var(--border);
+            border-radius: 30px; padding: 40px; text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); display: none; opacity: 0;
+            transform-style: preserve-3d; backface-visibility: hidden;
         }
-
-        .card-active { display: block; }
-
-        /* Profile Image Styling */
-        .profile-img-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            padding: 5px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            box-shadow: 0 10px 20px rgba(255, 62, 129, 0.3);
-            transform: translateZ(50px); /* 3D pop */
-        }
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #0c0a09;
-        }
+        .card-active { display: block; opacity: 1; }
 
         h1, h2 {
-            font-family: 'Playfair Display', serif;
-            background: linear-gradient(to right, #fff, #ff3e81);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            transform: translateZ(30px);
+            font-family: 'Playfair Display', serif; background: linear-gradient(to right, #fff, #ff3e81);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px;
         }
-
-        p { color: rgba(255,255,255,0.8); line-height: 1.6; margin-bottom: 30px; font-size: 1.1rem; transform: translateZ(20px); }
 
         .btn {
-            background: linear-gradient(135deg, #ff3e81, #e11d48);
-            color: white;
-            border: none;
-            padding: 16px 40px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(255, 62, 129, 0.3);
-            transform: translateZ(40px);
-            margin-top: 10px;
+            background: linear-gradient(135deg, #ff3e81, #e11d48); color: white; border: none;
+            padding: 14px 35px; border-radius: 50px; font-weight: 700; cursor: pointer;
+            transition: all 0.3s; transform: translateZ(40px); margin-top: 15px;
         }
+        .btn:hover { transform: translateZ(60px) scale(1.05); box-shadow: 0 15px 30px rgba(255, 62, 129, 0.5); }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--border);
-            margin-top: 20px;
+        /* --- Photo Row for Message Page --- */
+        .family-gallery {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;
         }
+        .family-item { display: flex; flex-direction: column; align-items: center; }
+        .family-item img, .family-item .no-photo {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--primary); margin-bottom: 5px;
+        }
+        .family-item .no-photo {
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.05); font-size: 1.5rem; border-style: dashed;
+        }
+        .family-item span { font-size: 0.7rem; color: var(--primary); font-weight: 600; }
 
-        .btn:hover {
-            transform: translateZ(60px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 62, 129, 0.5);
+        /* --- Scrollable Message Box --- */
+        .message-box {
+            background: rgba(255,255,255,0.03); border-radius: 20px;
+            padding: 25px; text-align: left; max-height: 300px;
+            overflow-y: auto; border: 1px solid var(--border);
+            line-height: 1.7; font-size: 0.95rem; color: rgba(255,255,255,0.9);
         }
+        .message-box::-webkit-scrollbar { width: 4px; }
+        .message-box::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        .message-box p { margin-bottom: 15px; }
 
-        /* --- Bento Grid --- */
-        .bento {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-            transform: translateZ(25px);
-        }
-        .bento-item {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            text-align: left;
-        }
-        .bento-large { grid-column: span 2; }
-        .bento-item h3 { font-size: 0.9rem; color: var(--primary); margin-bottom: 8px; text-transform: uppercase; }
-        .bento-item p { font-size: 0.85rem; margin-bottom: 0; }
-
-        /* --- Polaroid --- */
-        .polaroid {
-            background: white;
-            padding: 15px 15px 40px 15px;
-            width: 220px;
-            margin: 0 auto 30px;
-            transform: rotate(-3deg) translateZ(40px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        .polaroid img { width: 100%; height: 180px; object-fit: cover; }
-        .polaroid span { color: #333; font-family: 'Playfair Display'; margin-top: 15px; display: block; font-size: 1.2rem; }
-
-        /* --- Bible Verse --- */
-        .verse-box {
-            background: rgba(255,255,255,0.03);
-            border-left: 3px solid var(--primary);
-            padding: 20px;
-            font-style: italic;
-            margin: 20px 0;
-            text-align: left;
-            transform: translateZ(20px);
-        }
-
+        /* --- Final Celebration Message Box --- */
         #final-text {
-            max-height: 400px;
-            overflow-y: auto;
-            text-align: left;
-            padding-right: 10px;
+            max-height: 420px; overflow-y: auto; text-align: left; padding-right: 10px;
         }
-        #final-text::-webkit-scrollbar { width: 4px; }
-        #final-text::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        #final-text h2 { font-size: 1.6rem; text-align: center; }
+        #final-text p { font-size: 1rem; line-height: 1.8; margin-bottom: 15px; color: rgba(255,255,255,0.95); }
+        .final-verse {
+            border-left: 3px solid var(--primary); padding-left: 20px; font-style: italic;
+            margin: 25px 0; color: white; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 0 15px 15px 0;
+        }
+
+        /* --- General Components --- */
+        .bento { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
+        .bento-item { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 20px; text-align: left; }
+        .polaroid { background: white; padding: 15px 15px 40px 15px; width: 200px; margin: 0 auto 30px; transform: rotate(-3deg); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .polaroid img { width: 100%; height: 160px; object-fit: cover; }
+        .polaroid span { color: #333; font-family: 'Playfair Display'; margin-top: 10px; display: block; }
 
     </style>
 </head>
@@ -227,208 +137,202 @@
     <div class="aurora-wrapper"><div class="aurora"></div></div>
     <canvas id="three-canvas"></canvas>
 
-    <div class="progress-container">
-        <div id="progress-bar"></div>
-    </div>
+    <div class="progress-container"><div id="progress-bar"></div></div>
 
     <div class="card-container" id="card-container">
-        <!-- Step 1 -->
+        <!-- Step 1: Welcome -->
         <div id="step-1" class="glass-card card-active">
-            <div class="profile-img-container">
-                <!-- ADD YOUR IMAGE URL BELOW -->
-                <img src="https://media.licdn.com/dms/image/v2/D5603AQG0Fbvv08zNpg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1706506565870?e=1780531200&v=beta&t=mcyfobp38XPdaarY8J2-_PAJvrT3K_Are-uhv17jSAs" alt="Sindhu" class="profile-img">
+            <div style="width:100px; height:100px; margin: 0 auto 20px; border-radius:50%; overflow:hidden; border:3px solid var(--primary);">
+                <img src="https://media.licdn.com/dms/image/v2/D5603AQG0Fbvv08zNpg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1706506565870?e=1780531200&v=beta&t=mcyfobp38XPdaarY8J2-_PAJvrT3K_Are-uhv17jSAs" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <h1>Hey Sindhu 💖,</h1>
             <p>I built this little surprise just to bring a smile to your face on your special day.</p>
             <button class="btn" onclick="goToStep(2)">Let's Begin</button>
         </div>
 
-        <!-- Step 2 -->
+        <!-- Step 2: Birthday -->
         <div id="step-2" class="glass-card">
-            <div style="font-size: 4rem; margin-bottom: 20px; transform: translateZ(50px);">🥳🎂</div>
-            <h2>Happy Birthday, Sindhu!</h2>
-            <p>Wishing you many more happy returns of the day. May God bless you with happiness, health, peace, and success in everything you do.</p>
-            <button class="btn" onclick="goToStep(3)">There's More</button>
+            <div style="font-size: 4rem; margin-bottom: 20px;">🥳🎂</div>
+            <h2>Happy Birthday!</h2>
+            <p>Wishing you many more happy returns of the day, Sindhu. May God bless you abundantly.</p>
+            <button class="btn" onclick="goToStep(3)">Next</button>
         </div>
 
-        <!-- Step 3 -->
+        <!-- Step 3: Blessings -->
         <div id="step-3" class="glass-card">
-            <h2>Always in My Prayers</h2>
+            <h2>Blessings for You</h2>
             <div class="bento">
-                <div class="bento-item bento-large">
-                    <h3>🙏 God's Blessings</h3>
-                    <p>May the Lord guide your steps, protect you from difficulty, and surround you with His grace.</p>
+                <div class="bento-item" style="grid-column: span 2;">
+                    <h3>🙏 God's Grace</h3>
+                    <p>May the Lord guide your steps and protect you always.</p>
                 </div>
                 <div class="bento-item">
-                    <h3>😊 Your Smile</h3>
-                    <p>Keep smiling always; it brings warmth to everyone.</p>
+                    <h3>😊 Your Joy</h3>
+                    <p>May your smile never fade.</p>
                 </div>
                 <div class="bento-item">
                     <h3>🌸 Kind Heart</h3>
-                    <p>You deserve endless joy and beautiful memories.</p>
+                    <p>You deserve all the beauty in life.</p>
                 </div>
             </div>
-            <button class="btn" onclick="goToStep(4)">Next Surprise</button>
+            <button class="btn" onclick="goToStep(4)">Continue</button>
         </div>
 
-        <!-- Step 4 -->
+        <!-- Step 4: Friendship -->
         <div id="step-4" class="glass-card">
             <h2>Our Friendship</h2>
             <div class="polaroid">
                 <img src="https://i.pinimg.com/1200x/fa/fa/6a/fafa6ad186ddf4a7c103ca2e7bf35b22.jpg" alt="Friendship">
                 <span>Sindhu ✨</span>
             </div>
-            <p>"Your friendship is one of the precious gifts in my life. Every conversation and memory with you is truly special."</p>
-            <button class="btn" onclick="goToStep(5)">One Last Thing</button>
+            <p>"Your friendship is a precious gift. Every memory with you is truly special."</p>
+            <button class="btn" onclick="goToStep(5)">Surprise Message</button>
         </div>
 
-        <!-- Step 5 -->
+        <!-- Step 5: THE SURPRISE MESSAGE -->
         <div id="step-5" class="glass-card">
-            <div id="finale-intro">
-                <div style="font-size: 3rem; margin-bottom: 10px; transform: translateZ(50px);">🎂✨💖</div>
-                <h2>My Wish For You</h2>
-                <div class="verse-box">
-                    “The Lord bless you and keep you; the Lord make His face shine on you and be gracious to you; the Lord turn His face toward you and give you peace.”
-                    <br><small>— Numbers 6:24–26</small>
+            <h2>Surprise Message</h2>
+            
+            <div class="family-gallery">
+                <div class="family-item">
+                    <img src="https://media.licdn.com/dms/image/v2/D5603AQG0Fbvv08zNpg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1706506565870?e=1780531200&v=beta&t=mcyfobp38XPdaarY8J2-_PAJvrT3K_Are-uhv17jSAs" alt="Sindhu">
+                    <span>Sindhu</span>
                 </div>
+                <div class="family-item">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200" alt="Aunty">
+                    <span>Aunty</span>
+                </div>
+                <div class="family-item">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200" alt="Raja">
+                    <span>Raja Bro</span>
+                </div>
+                <div class="family-item">
+                    <div class="no-photo">👔</div>
+                    <span>Uncle</span>
+                </div>
+            </div>
+
+            <div class="message-box">
+                <p>Hey Sindhu,</p>
+                <p>I hope you’re doing well and are happy.</p>
+                <p>After six years, hearing your voice truly made me so happy. I usually don’t want to disturb you because I know how busy you are with work and travel. But please know that you are in my daily prayers. We pray for you and your family every day.</p>
+                <p>Your voice has changed so much, and hearing your message made my day. I had absolutely no clue that you and Kavi were planning this surprise. Thank you so much to both of you for making me this happy.</p>
+                <p>No matter what happens in life, you will never be just one among the crowd to me. You are someone very special, always in the front row of the people I value most.</p>
+                <p>We are eagerly waiting to meet you. It has been six years since college. Whenever you have some free time, please visit us in Hyderabad. Our home will always warmly welcome you.</p>
+                <p>Please convey my heartfelt thanks to Aunty, Uncle, and Raja brother. By the way, Aunty looks absolutely adorable!</p>
+                <p>Take care, and thank you for making my day so special.</p>
+            </div>
+
+            <button class="btn" onclick="goToStep(6)">One Last Thing</button>
+        </div>
+
+        <!-- Step 6: CELEBRATE PAGE -->
+        <div id="step-6" class="glass-card">
+            <div id="finale-intro">
+                <div style="font-size: 3.5rem; margin-bottom: 20px;">✨💖✨</div>
+                <h2>Ready for the Grand Wish?</h2>
+                <p>Click below to see your special birthday blessing!</p>
                 <button class="btn" onclick="startCelebration()">Celebrate!</button>
             </div>
 
             <div id="final-text" style="display:none;">
-                <h2 style="font-size: 1.5rem;">Happy Birthday, Sindhu!</h2>
-                <p style="font-size: 0.95rem;">
-                    Wishing you many more happy returns of the day, Sindhu. May God bless you with all the happiness in the world, abundant health, peace, and success in everything you do. Whatever you wish for, may the Lord grant it according to His perfect will, and may all your dreams and aspirations come true.<br><br>
-                    You are always in my prayers. 🙏💐 I sincerely pray that God fills your life with endless joy, love, and beautiful moments. May He guide your steps, protect you from every difficulty, and surround you with His grace and favor.<br><br>
-                    Keep smiling always 😊🌸 because your smile has a way of bringing warmth and happiness to the people around you. Once again, wishing you a very Happy Birthday, dear Sindhu! 🎉💖
+                <h2>Happy Birthday, Sindhu! 🥰🥰🎉🎂</h2>
+                
+                <p>Wishing you many more happy returns of the day, Sindhu. May God bless you with all the happiness in the world, abundant health, peace, and success in everything you do. Whatever you wish for, may the Lord grant it according to His perfect will, and may all your dreams and aspirations come true.</p>
+
+                <p>You are always in my prayers. I sincerely pray that God fills your life with endless joy, love, and beautiful moments. May He guide your steps, protect you from every difficulty, and surround you with His grace and favor.</p>
+
+                <p>Keep smiling always, because your smile has a way of bringing warmth and happiness to the people around you. You are a wonderful person with a kind heart, and may your life be filled with God’s richest blessings, endless joy, and beautiful moments.</p>
+
+                <p>May this new year of your life bring exciting opportunities, cherished memories, and countless reasons to be grateful.</p>
+
+                <div class="final-verse">
+                    “The Lord bless you and keep you;<br>
+                    the Lord make His face shine on you and be gracious to you;<br>
+                    the Lord turn His face toward you and give you peace.”<br>
+                    <strong>— Numbers 6:24–26</strong>
+                </div>
+
+                <p style="text-align: center; font-weight: bold;">
+                    Once again, wishing you a very Happy Birthday, dear Sindhu! May your day be as beautiful and special as you are. 🎉✨
                 </p>
-                <button class="btn btn-secondary" onclick="restartExperience()">↺ Back to Start</button>
+
+                <button class="btn" style="background:transparent; border:1px solid white; display: block; margin: 30px auto 0;" onclick="location.reload()">↺ Restart Experience</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. THREE.JS 3D BACKGROUND ---
         let scene, camera, renderer, particles;
 
         function init3D() {
-            try {
-                scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true, antialias: true });
-                renderer.setSize(window.innerWidth, window.innerHeight);
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('three-canvas'), alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
 
-                const geometry = new THREE.BufferGeometry();
-                const vertices = [];
-                for (let i = 0; i < 2000; i++) {
-                    vertices.push(THREE.MathUtils.randFloatSpread(1000));
-                    vertices.push(THREE.MathUtils.randFloatSpread(1000));
-                    vertices.push(THREE.MathUtils.randFloatSpread(1000));
-                }
-                geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-                const material = new THREE.PointsMaterial({ color: 0xff3e81, size: 2, transparent: true, opacity: 0.5 });
-                particles = new THREE.Points(geometry, material);
-                scene.add(particles);
-                camera.position.z = 500;
-            } catch(e) { console.log("3D Engine skipped."); }
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            for (let i = 0; i < 2000; i++) {
+                vertices.push(THREE.MathUtils.randFloatSpread(1000));
+                vertices.push(THREE.MathUtils.randFloatSpread(1000));
+                vertices.push(THREE.MathUtils.randFloatSpread(1000));
+            }
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            const material = new THREE.PointsMaterial({ color: 0xff3e81, size: 2, transparent: true, opacity: 0.5 });
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+            camera.position.z = 500;
         }
 
         function animate() {
             requestAnimationFrame(animate);
-            if(particles) {
-                particles.rotation.y += 0.001;
-                particles.rotation.x += 0.0005;
-            }
+            if(particles) { particles.rotation.y += 0.001; particles.rotation.x += 0.0005; }
             if(renderer) renderer.render(scene, camera);
         }
 
-        // --- 2. 3D FLOATING & TILT LOGIC ---
         const cardContainer = document.getElementById('card-container');
-        
-        // Continuous Floating Animation
-        gsap.to(cardContainer, {
-            y: "-=20",
-            duration: 3,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true
-        });
-
-        // 3D Tilt Effect on Mouse Move
         document.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
             cardContainer.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
         });
 
-        // Reset tilt on mouse leave
-        document.addEventListener('mouseleave', () => {
-            cardContainer.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
-
-        // --- 3. NAVIGATION LOGIC ---
         let currentStep = 1;
         function goToStep(step) {
             const outEl = document.getElementById(`step-${currentStep}`);
             const inEl = document.getElementById(`step-${step}`);
-            
-            gsap.to(outEl, { opacity: 0, scale: 0.8, duration: 0.5, onComplete: () => {
-                outEl.style.display = 'none';
-                inEl.style.display = 'block';
-                gsap.fromTo(inEl, { opacity: 0, scale: 0.8, z: -100 }, { opacity: 1, scale: 1, z: 0, duration: 0.6 });
-            }});
+            const tl = gsap.timeline();
+
+            tl.to(outEl, { x: -50, opacity: 0, rotationY: -20, duration: 0.4, onComplete: () => { outEl.style.display = 'none'; }});
+            tl.fromTo(inEl, { display: 'none', x: 50, opacity: 0, rotationY: 20 }, { display: 'block', x: 0, opacity: 1, rotationY: 0, duration: 0.6 });
 
             currentStep = step;
-            document.getElementById('progress-bar').style.width = (step * 20) + '%';
+            document.getElementById('progress-bar').style.width = (step * 16.6) + '%';
         }
 
-        function restartExperience() {
-            // Hide final text and show intro inside step 5 for next time
-            document.getElementById('final-text').style.display = 'none';
-            document.getElementById('finale-intro').style.display = 'block';
-            document.getElementById('finale-intro').style.opacity = '1';
-            
-            // Go back to Step 1
-            goToStep(1);
-        }
-
-        // --- 4. CELEBRATION LOGIC ---
         function startCelebration() {
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#ff3e81', '#7e22ce', '#ffffff']
-            });
-
-            gsap.to('#finale-intro', { opacity: 0, scale: 0.8, duration: 0.5, onComplete: () => {
-                document.getElementById('finale-intro').style.display = 'none';
-                const ft = document.getElementById('final-text');
-                ft.style.display = 'block';
-                gsap.fromTo(ft, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 });
-            }});
+            // Intense Confetti Burst
+            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 }, colors: ['#ff3e81', '#7e22ce', '#ffffff', '#ffd700'] });
             
-            const end = Date.now() + 3000;
+            // Continuous side cannons for a few seconds
+            const duration = 3 * 1000;
+            const end = Date.now() + duration;
+
             (function frame() {
-                confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff3e81'] });
-                confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#7e22ce'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
+              confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff3e81', '#ffd700'] });
+              confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#7e22ce', '#ffffff'] });
+              if (Date.now() < end) requestAnimationFrame(frame);
             }());
+
+            gsap.to('#finale-intro', { opacity: 0, duration: 0.5, onComplete: () => {
+                document.getElementById('finale-intro').style.display = 'none';
+                document.getElementById('final-text').style.display = 'block';
+                gsap.fromTo('#final-text', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.2, ease: "power2.out" });
+            }});
         }
 
-        // --- 5. STARTUP ---
-        window.onload = () => {
-            init3D();
-            animate();
-            gsap.to('#step-1', { opacity: 1, duration: 1.2, delay: 0.5 });
-        };
-
-        window.addEventListener('resize', () => {
-            if(camera) {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            }
-        });
+        window.onload = () => { init3D(); animate(); gsap.to('#step-1', { opacity: 1, duration: 1 }); };
     </script>
 </body>
-</html>	
+</html>
